@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS User Registration and Login Example</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/form-elements.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+
+
+</head>
+<body>
+
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+
+                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                <div ng-view></div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="//code.angularjs.org/1.2.20/angular.js"></script>
+    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
+    <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
+    <script src="./js/jquery-1.11.1.min.js"></script>
+
+    <script src="app.js"></script>
+    <script src="app-services/authentication.service.js"></script>
+    <script src="app-services/flash.service.js"></script>
+
+    <!-- Real user service that uses an api -->
+    <!-- <script src="app-services/user.service.js"></script> -->
+
+    <!-- Fake user service for demo that uses local storage -->
+    <script src="app-services/user.service.local-storage.js"></script>
+
+    <script src="home/home.controller.js"></script>
+    <script src="login/login.controller.js"></script>
+    <script src="register/register.controller.js"></script>
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/js/background.js"></script>
+    <script src="/js/jscript.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+﻿
+<head>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/menubar.css">
+</head>
+
+<body>
+
+<!--<div id="home">
+    &lt;!&ndash;<h3>Hi {{vm.user.firstName}}!</h3>&ndash;&gt;
+    &lt;!&ndash;<p>You're logged in!!</p>
+    <h3>All registered users:</h3>
+    <ul>
+        <li ng-repeat="user in vm.allUsers">
+            {{user.username}} ({{user.firstName}} {{user.lastName}})
+             - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>
+        </li>
+    </ul>
+    <p>&nbsp;</p>&ndash;&gt;
+    &lt;!&ndash;<button ng-click="go('/login')" class="btn">Logout</button>&ndash;&gt;
+</div>-->
+
+<div>
+    <ul id="menu">
+        <li><a href="#">Home</a></li>
+        <li>
+            <input type="text" name="searchTab" id="searchTab" class="search-control" placeholder="Search for Movies " ng-model="vm.searchValue"  />
+            <!--<i class="fa fa-search" aria-hidden="true"></i>-->
+        </li>
+        <li>
+            <a href="#">Categories</a>
+            <ul>
+                <li><a href="#">CSS</a></li>
+
+                <li><a href="#">Graphic design</a></li>
+                <li><a href="#">Development tools</a></li>
+                <li><a href="#">Web design</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Horror</a></li>
+        <li><a href="#">Romance</a></li>
+        <li><a href="#/login">Logout</a></li>
+    </ul>
+</div>
+
+
+<div>
+
+    <div>
+
+        <!--<iframe id="video1"
+                width="300" height="200"
+                src="/videos/1.mp4">
+        </iframe>-->
+
+        <img
+                ng-src="{{vm.imgToShow}}"
+                width="750"
+                height="400"
+        />
+
+    </div>
+
+    <h2>{{vm.imgName}}</h2>
+
+</div>
+
+
+<div class="contain" >
+
+    <div class="row" >
+        <div class="row__inner" >
+
+            <div class="tile" ng-repeat="myimage in vm.myimg">
+                <div class="tile__media" >
+                    <img class="tile__img" ng-src="{{myimage.imgSrc}}"  ng-click="vm.imgClick(myimage)"/>
+                    <h2 ng-show="ng-click">{{myimage}}</h2>
+                </div>
+               <!-- <div class="tile__details"  ng-click="vm.imgClick($scope)">
+                    <div class="tile__title">
+                        Top Gear
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>

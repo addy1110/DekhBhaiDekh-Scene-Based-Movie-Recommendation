@@ -1,0 +1,5 @@
+﻿img {
+    max-width: 100%;
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
