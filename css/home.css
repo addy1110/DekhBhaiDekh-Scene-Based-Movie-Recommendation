@@ -54,6 +54,7 @@ a:hover {
 .row {
     overflow: scroll;
     width: 100%;
+    background: transparent;
 }
 
 .row__inner {

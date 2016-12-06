@@ -5,6 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "elasticsearch": "^11.0.1",
+    "file-system": "^2.2.2",
+    "mysql": "github:mysqljs/mysql",
     "q": "^1.4.1",
     "request": "*",
     "videogular": "^1.4.4",
