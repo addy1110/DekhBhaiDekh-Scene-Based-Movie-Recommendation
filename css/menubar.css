@@ -1,3 +1,7 @@
+body{
+    padding-top: 70px;
+}
+
 #menu, #menu ul {
     margin: 0;
     padding: 0;
@@ -24,6 +28,7 @@
 
 #menu {
     width: 840px;
+    margin:auto;
     margin-bottom: 20px;
     border: 1px solid #222;
     background-color: #111;
@@ -75,7 +80,7 @@
     margin: 20px 0 0 0;
     _margin: 0; /*IE6 only*/
     opacity: 0;
-    visibility: hidden;
+    /*visibility: hidden;*/
     position: absolute;
     top: 38px;
     left: 0;
@@ -163,4 +168,32 @@
 
 #menu ul li:last-child > a {
     border-radius: 0 0 3px 3px;
+}
+.navbar-default{
+    width: 117%;
+}
+
+.dropdown{
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown:hover .dropdown-menu{
+
+    display: inline-block;
+    color: white;
+    position: absolute;
+    /*background: #444;*/
+    /*background: linear-gradient(#444, #111);*/
+    /*box-shadow: 0 -1px 0 rgba(255,255,255,.3);*/
+    border-radius: 3px;
+    transition: all .2s ease-in-out;
+
+}
+
+.dropdown-menu{
+
+    position: absolute;
+    z-index: 1;
+    display: none;
 }
