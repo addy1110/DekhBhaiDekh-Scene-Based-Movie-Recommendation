@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "elasticsearch": "^11.0.1",
+    "express": "^4.14.0",
     "q": "^1.4.1",
     "request": "*",
     "videogular": "^1.4.4",

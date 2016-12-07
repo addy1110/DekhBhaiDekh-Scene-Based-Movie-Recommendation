@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/'));
 
 require("./getData.js")(app);
 
-var port = 8081;
+var port = 8082;
 var server = app.listen(port, function(){
     console.log("server running at localhost:"+port+"/");
 });

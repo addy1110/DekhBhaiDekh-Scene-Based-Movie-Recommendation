@@ -18,12 +18,12 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-5">
+    <div class=" col-sm-12 col-md-10 col-md-offset-1">
 
         <div class="form-box">
             <div class="form-top">
                 <div class="form-top-left">
-                    <h3>Sign up now</h3>
+                    <h3>Sign Up !!</h3>
                     <p>Fill in the form below to get instant access:</p>
                 </div>
                 <div class="form-top-right">
@@ -88,64 +88,87 @@
 
                     <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn">Sign me up!</button>
                     <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                    <a href="#/login" class="btn btn-link">Cancel</a>
 
 
                     <a class="btn btn-link-2" href="#">
                         <i class="fa fa-facebook"></i> Facebook
                     </a>
+
+                    <!--<div class="fb-login-button" data-max-rows="2" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false">Facebook</div>-->
+
                     <a class="btn btn-link-2" href="#">
                         <i class="fa fa-google-plus"></i> Google Plus
                     </a>
+                    <!--<div id="my-signin2"></div>-->
+                    <!--<script>-->
+                        <!--function onSuccess(googleUser) {-->
+                            <!--console.log('Logged in as: ' + googleUser.getBasicProfile().getName());-->
+                        <!--}-->
+                        <!--function onFailure(error) {-->
+                            <!--console.log(error);-->
+                        <!--}-->
+                        <!--function renderButton() {-->
+                            <!--gapi.signin2.render('my-signin2', {-->
+                                <!--'scope': 'profile email',-->
+                                <!--'width': 240,-->
+                                <!--'height': 50,-->
+                                <!--'longtitle': true,-->
+                                <!--'theme': 'dark',-->
+                                <!--'onsuccess': onSuccess,-->
+                                <!--'onfailure': onFailure-->
+                            <!--});-->
+                        <!--}-->
+                    <!--</script>-->
+                    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+                    <a href="#/login" class="btn btn-link">Cancel</a>
                 </form>
             </div>
         </div>
 
     </div>
 
-    <div class="col-sm-1 middle-border"></div>
-    <div class="col-sm-1"></div>
+    <!--<div class="col-sm-1 middle-border"></div>-->
+    <!--<div class="col-sm-1"></div>-->
 
-    <div class="col-sm-5">
+    <!--<div class="col-sm-5">-->
 
-        <div class="form-box">
-            <div class="form-top">
-                <div class="form-top-left">
-                    <h3>Login to our site</h3>
-                    <p>Enter username and password to log on:</p>
-                </div>
-                <div class="form-top-right">
-                    <i class="fa fa-lock"></i>
-                </div>
-            </div>
-            <div class="form-bottom">
-                <form role="form" ng-submit="vm.login()" class="login-form">
-                    <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                        <label class="fields" for="username">Username</label>
-                        <input type="text" name="username" id="username1" class="form-control" ng-model="vm.username" required />
-                        <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
-                    </div>
-                    <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                        <label class="fields" for="password">Password</label>
-                        <input type="password" name="password" id="password1" class="form-control" ng-model="vm.password" required />
-                        <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn ">Login</button>
-                        <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        <!--<a href="#/register" class="btn btn-link">Register</a>-->
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        <!--<div class="form-box">-->
+            <!--<div class="form-top">-->
+                <!--<div class="form-top-left">-->
+                    <!--<h3>Login to our site</h3>-->
+                    <!--<p>Enter username and password to log on:</p>-->
+                <!--</div>-->
+                <!--<div class="form-top-right">-->
+                    <!--<i class="fa fa-lock"></i>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-bottom">-->
+                <!--<form role="form" ng-submit="vm.login()" class="login-form">-->
+                    <!--<div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">-->
+                        <!--<label class="fields" for="username">Username</label>-->
+                        <!--<input type="text" name="username" id="username1" class="form-control" ng-model="vm.username" required />-->
+                        <!--<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>-->
+                    <!--</div>-->
+                    <!--<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">-->
+                        <!--<label class="fields" for="password">Password</label>-->
+                        <!--<input type="password" name="password" id="password1" class="form-control" ng-model="vm.password" required />-->
+                        <!--<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>-->
+                    <!--</div>-->
+                    <!--<div class="form-actions">-->
+                        <!--<button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn ">Login</button>-->
+                        <!--<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+                        <!--&lt;!&ndash;<a href="#/register" class="btn btn-link">Register</a>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
 
-    </div>
+    <!--</div>-->
 
-</div>
-
-        <script src="/js/jquery.backstretch.min.js"></script>
-        <script src="/js/background.js"></script>
+<!--</div>-->
+    <script src="/js/jquery.backstretch.min.js"></script>
+    <script src="/js/background.js"></script>
 
 </body>
