@@ -35,7 +35,7 @@ connection.connect(function(err){
 });
 
 console.log("hello");
-connection.query('CREATE TABLE moviedb (userid varchar(20), firstname varchar(20), lastname varchar(20), email varchar(32), pass varchar(32), dob date , genre varchar(6))',
+/*connection.query('CREATE TABLE moviedb (userid varchar(20), firstname varchar(20), lastname varchar(20), email varchar(32), pass varchar(32), dob date , genre varchar(6))',
 
     function(err, result){
 
@@ -47,7 +47,14 @@ connection.query('CREATE TABLE moviedb (userid varchar(20), firstname varchar(20
             console.log("Table Created");
         }
     }
-);
+);*/
+
+connection.query('SELECT * FROM moviedb',function(err,rows){
+    if(err) throw err;
+
+    console.log('Data received from Db:\n');
+    console.log(rows[0]);
+});
 
 connection.end(function(err) {
     // The connection is terminated now
