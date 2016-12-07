@@ -62,17 +62,40 @@ var values = {
 // sql = 'INSERT INTO moviedb (userid) '+
 //     'VALUES('+id+')';
 
-var query = "INSERT INTO moviedb (userid, firstname, lastname, email, pass) VALUES ('" + userid + "', '" + firstname + "', '" + lastname + "', '" + email + ''"+pass'");";
+// var query = "INSERT INTO `moviedb` (userid, firstname, lastname, email, pass) VALUES ('" + userid + "', '" + firstname + "', '" + lastname + "', '" + email + ''"+pass'");";
+//
+// connection.query(sql,
+//     function (err) {
+//         if(err) throw err;
+//         else{
+//             console.log('Data inserted:\n');
+//         }
+//
+//     });
 
-connection.query(sql,
-    function (err) {
-        if(err) throw err;
-        else{
-            console.log('Data inserted:\n');
+
+// var newuser = { userid: 'winnie', firstname: 'Winnie', lastname: 'Sharma', email: 'winnie@example.com', pass: 'ankit23'};
+// connection.query('INSERT INTO moviedb SET ?', newuser, function(err,res){
+//     if(err) throw err;
+//
+//     console.log('Last insert ID:', res.insertId);
+// });
+
+var dataobj = {userid: 'mishra',
+    firstname: 'Lordho',
+    lastname: 'Mishra',
+    email: 'mishraChutiya@example.com',
+    pass: '100802434'};
+
+var newuser = "INSERT INTO `moviedb` (userid, firstname, lastname, email, pass) VALUES ('" + dataobj.userid + "', '" + dataobj.firstname + "', '" + dataobj.lastname + "', '" + dataobj.email + "', '" + dataobj.pass + "');";
+//console.log(query);
+connection.query(newuser, dataobj, function(err, res) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(res, "Cast Member Added", 201);
         }
-
     });
-
 
 
 
