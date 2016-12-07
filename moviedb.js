@@ -35,7 +35,6 @@ connection.connect(function(err){
 });
 
 console.log("hello");
-console.log("hello");
 
 /*connection.query('CREATE TABLE moviedb (userid varchar(20), firstname varchar(20), lastname varchar(20), email varchar(32), pass varchar(32), dob date , genre varchar(6))',
 
