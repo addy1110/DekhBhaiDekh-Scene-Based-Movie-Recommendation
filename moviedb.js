@@ -50,14 +50,8 @@ console.log("hello");
         }
     }
 );*/
-var values = {
-    userid: 'addy',
-    firstname: 'Aditya',
-    lastname: 'Kaushal',
-    email: 'addy@example.com',
-    pass: '1234598'
 
-};
+
 // var id = "addy2120";
 // sql = 'INSERT INTO moviedb (userid) '+
 //     'VALUES('+id+')';
