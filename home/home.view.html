@@ -105,25 +105,23 @@
 </nav>
 
 <div class="movie_description">
-    <div class="imageshow">
+        <div class="imageshow col-md-6 col-xs-12">
 
     <!--<iframe id="video1"
             width="300" height="200"
             src="/videos/1.mp4">
     </iframe>-->
 
-    <img
+        <img
             ng-src="{{vm.imgToShow}}"
-            width="700"
-            height="450"
-    />
-
-    </div>
-    <div class="movie_details">
-        <h3> Movie Name:</h3>
-
-    </div>
-
+            width="400"
+            height="350"
+        />
+        </div>
+         <div class="movie_details col-md-6 col-xs-12">
+            <h3> Movie Name:</h3>
+            <h3> Genre:</h3>
+        </div>
 <!--<h2>{{vm.imgName}}</h2>-->
 </div>
 <!--
@@ -134,10 +132,10 @@
     &lt;!&ndash;<img ng-src="https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"/>&ndash;&gt;
 
 </div>-->
-<div class="contain col-xs-6 col-xs-6">
+<div class="contain">
 
-    <div class="row col-xs-6 col-xs-6">
-        <div class="row__inner col-xs-6 col-xs-6" >
+    <div class="row">
+        <div class="row__inner">
 
             <div class="tile" ng-repeat="myimage in vm.myimg">
                 <div class="tile__media" >
