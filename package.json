@@ -4,21 +4,14 @@
   "description": "simple nodejs application that fetches tweets from twitter api and pushes them into aws elasticsearch domain",
   "main": "server.js",
   "dependencies": {
+    "aws-sdk": "^2.7.16",
     "elasticsearch": "^11.0.1",
-    "file-system": "^2.2.2",
-    "mysql": "github:mysqljs/mysql",
     "express": "^4.14.0",
+    "file-system": "^2.2.2",
+    "forever-agent": "^0.6.1",
+    "mysql": "github:mysqljs/mysql",
     "q": "^1.4.1",
-    "request": "*",
-    "videogular": "^1.4.4",
-    "videogular-angulartics": "^1.4.4",
-    "videogular-buffering": "^1.4.4",
-    "videogular-controls": "^1.4.4",
-    "videogular-dash": "^1.4.4",
-    "videogular-ima-ads": "^1.4.4",
-    "videogular-overlay-play": "^1.4.4",
-    "videogular-poster": "^1.4.4",
-    "videogular-themes-default": "^1.4.4"
+    "request": "*"
   },
   "scripts": {
     "test": "node server.js"

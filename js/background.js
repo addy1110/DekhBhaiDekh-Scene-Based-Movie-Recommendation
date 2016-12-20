@@ -13,4 +13,5 @@ jQuery(document).ready(function() {
         "./img/backgrounds/5.jpg"
     ], {duration: 10000, fade: 900});
 
+
 });

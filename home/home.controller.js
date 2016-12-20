@@ -8,7 +8,8 @@
     HomeController.$inject = ['UserService', '$rootScope', '$scope', '$location'];
     function HomeController(UserService, $rootScope, $scope, $location) {
         var vm = this;
-
+        // vm.imgShow = false;
+        vm.dataloading=true;
         vm.myimg=[
             {
                 id:"mv01",
@@ -85,6 +86,21 @@
             }
 
         ];
+        vm.mvname = "mv06";
+
+        vm.movie=[];
+        vm.imgSrc=[];
+
+        $.get("/api/es/" + "init",
+            function (response) {
+                for(var i = 0; i < response.length; i++){
+                     vm.movie[i] = response[i]._source;
+                     vm.imgSrc[i] = response[i]._source['poster-links'];
+                     console.log(vm.imgSrc[i]);
+                }
+                vm.dataloading=false;
+            });
+
 
         vm.hello = "Hello Aditya";
         vm.showImg = false;
@@ -148,6 +164,7 @@
 
             $location.path( path );
         };
+
     }
 
 })();

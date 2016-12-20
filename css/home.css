@@ -47,7 +47,8 @@ a:hover {
 }
 
 .contain {
-    width: 100%;
+    width: 1400px;
+    height: auto;
     /*margin-left: 12px;*/
 }
 
