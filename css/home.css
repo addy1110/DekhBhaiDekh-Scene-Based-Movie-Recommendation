@@ -365,11 +365,24 @@ a:hover {
 .logout{
     cursor: pointer;
 }
+.movie_description{
+    /*text-align: center;*/
+    display: inline-block;
+}
 
 .movie_description .imageshow{
-    float: left;
+    display: inline-block;
+    /*float: left;*/
 }
 .movie_description .movie_details{
-    float: right;
-    margin-top: 100px;
+    /*border-top-width: 700px;*/
+    /*border-right: 350px;*/
+    /*border-left: 350px;*/
+    display: inline-block;
+    /*margin-left: 150px;*/
+    /*float: right;*/
+    /*border: 2px solid #73AD21;*/
+    /*padding: 20px;*/
+    width: 400px;
+    height: 350px;
 }
