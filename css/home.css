@@ -365,3 +365,11 @@ a:hover {
 .logout{
     cursor: pointer;
 }
+
+.movie_description .imageshow{
+    float: left;
+}
+.movie_description .movie_details{
+    float: right;
+    margin-top: 100px;
+}
