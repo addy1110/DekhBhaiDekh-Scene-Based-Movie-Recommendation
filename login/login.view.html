@@ -1,51 +1,186 @@
-﻿
+﻿<head>
+    <!--<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">-->
+    <!--<link rel="stylesheet" href="/css/form-elements.css">-->
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="./homepage.css">-->
+    <link rel="stylesheet" href="/css/homapage.css">
+    <link rel="stylesheet" href="/css/backstretch.css">
+
+   <!-- <script>
+        $.backstretch('destroy');
+    </script>-->
+</head>
 
 <body>
-<div class="form-login col-sm-12 col-md-10 col-md-offset-1">
+<!--<div class = "backImage"></div>-->
 
-    <div class="form-box">
-        <div class="form-top">
-            <div class="form-top-left">
-                <h3>Login to our site</h3>
-                <p>Enter username and password to log on:</p>
+
+<!--<div class="background-image"></div>-->
+<!--<div class="form-login col-sm-12 col-md-10 col-md-offset-1">-->
+
+    <!--<div class="form-box">-->
+        <!--<div class="form-top">-->
+            <!--<div class="form-top-left">-->
+                <!--<h3>Login to our site</h3>-->
+                <!--<p>Enter username and password to log on:</p>-->
+            <!--</div>-->
+            <!--<div class="form-top-right">-->
+                <!--<i class="fa fa-lock"></i>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-bottom">-->
+    <!--<form name="form" ng-submit="vm.login()" role="form">-->
+        <!--<div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">-->
+            <!--<label class="fields" for="username">Username</label>-->
+            <!--<input type="text" name="username" id="username" class="form-control" ng-model="vm.username" required />-->
+            <!--<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>-->
+        <!--</div>-->
+        <!--<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">-->
+            <!--<label class="fields" for="password">Password</label>-->
+            <!--<input type="password" name="password" id="password" class="form-control" ng-model="vm.password" required />-->
+            <!--<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>-->
+        <!--</div>-->
+        <!--<div class="form-actions">-->
+            <!--<button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn">Login</button>-->
+            <!--<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+
+
+        <!--</div>-->
+    <!--</form>-->
+            <!--<div>-->
+                <!--<button ng-click="go('/register')" class="btn">Register</button>-->
+                <!--<b>{{getDatetime | date:'yyyy-MMM-dd-hh:mm:ss a'}}</b>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--<body class="login">-->
+<!--&lt;!&ndash; header starts here &ndash;&gt;-->
+<!--<div id="facebook-Bar">-->
+<!--<div id="facebook-Frame">-->
+
+
+<!--<div id="header-main-right">-->
+<!--<div id="header-main-right-nav">-->
+<!--<form method="post" action="" id="login_form" name="login_form">-->
+<!--<table border="0" style="border:none">-->
+<!--<tr>-->
+<!--<td ><input type="text" tabindex="1"  id="email" placeholder="Email or Phone" name="email" class="inputtext radius1" value=""></td>-->
+<!--<td ><input type="password" tabindex="2" id="pass" placeholder="Password" name="pass" class="inputtext radius1" ></td>-->
+<!--<td ><input type="submit" class="fbbutton" name="login" value="Login" /></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><label><input id="persist_box" type="checkbox" name="persistent" value="1" checked="1"/><span style="color:#ccc;">Keep me logged in</span></label>-->
+<!--</td>-->
+<!--<td><label><a href="" style="color:#ccc; text-decoration:none">forgot your password?</a></label></td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash; header ends here &ndash;&gt;-->
+
+
+<!--<div id="ad" style="width:100%; margin-top:50px;">-->
+<!--<center><script type="text/javascript">&lt;!&ndash;-->
+<!--google_ad_client = "ca-pub-5104998679826243";-->
+<!--/* mysite */-->
+<!--google_ad_slot = "2922638918";-->
+<!--google_ad_width = 250;-->
+<!--google_ad_height = 250;-->
+<!--//&ndash;&gt;-->
+<!--</script>-->
+<!--<script type="text/javascript"-->
+<!--src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
+<!--</script>-->
+<!--</center>-->
+<!--</div>-->
+
+
+
+
+<!--<p style="font-size:12px;">-->
+<!--<center>-->
+<!--<a href="http://w3lessons.info">by w3lessons.info</a>-->
+<!--</center>-->
+<!--</p>-->
+
+<nav class="navbar  navbar-inverse  navbar-fixed-top navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Dekh Bhai Dekh</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+                <!--<li><a href="#">Link</a></li>-->
+                <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="#">Action</a></li>-->
+                <!--<li><a href="#">Another action</a></li>-->
+                <!--<li><a href="#">Something else here</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a href="#">Separated link</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a href="#">One more separated link</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+            </ul>
+            <div class="navbar-form navbar-right">
+                <div class="form-group" ng-submit="vm.login()">
+                    <!--<input type="text" class="form-control" placeholder="Username" />-->
+                    <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                        <input type="text" name="username" placeholder="Username" id="username" class="form-control" ng-model="vm.username" required />
+                        <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+                </div>
+                <div class="form-group">
+                    <!--<input type="password" class="form-control" placeholder="Password">-->
+                    <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" ng-model="vm.password" required />
+                        <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+
+                </div>
+                <!--<button type="Log In" class="btn btn-primary">Log In</button>-->
+                    <!--<div class="form-actions">-->
+                    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid || vm.dataLoading" class="btn">Login</button>
+                    <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+
+                    </div>
+                <button type="Sign Up" class="btn btn-success" button ng-click= "go('/register')">Sign Up</button>
+                    </form>
+                    <div>
+                    <!--<button ng-click="go('/register')" class="btn btn-success">Register</button>-->
+                    <b>{{getDatetime | date:'yyyy-MMM-dd-hh:mm:ss a'}}</b>
+                    </div>
             </div>
-            <div class="form-top-right">
-                <i class="fa fa-lock"></i>
-            </div>
-        </div>
-        <div class="form-bottom">
-    <form name="form" ng-submit="vm.login()" role="form">
-        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-            <label class="fields" for="username">Username</label>
-            <input type="text" name="username" id="username" class="form-control" ng-model="vm.username" required />
-            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-            <label class="fields" for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control" ng-model="vm.password" required />
-            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
-        </div>
-        <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn">Login</button>
-            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-
-
-        </div>
-    </form>
-            <div>
-                <button ng-click="go('/register')" class="btn">Register</button>
-                <b>{{getDatetime | date:'yyyy-MMM-dd-hh:mm:ss a'}}</b>
-            </div>
-
-        </div>
+            </form>
+        </div><!-- /.navbar-collapse -->
     </div>
-</div>
+        </div><!-- /.container-fluid -->
+</nav>
 
-    <script src="./js/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <!--<script src="/js/jquery-1.11.1.min.js"></script>-->
+    <!--<script src="/js/jscript.js"></script>-->
     <script src="/js/jquery.backstretch.min.js"></script>
     <script src="/js/background.js"></script>
-    <script src="/js/jscript.js"></script>
+
 
 </body>
 
