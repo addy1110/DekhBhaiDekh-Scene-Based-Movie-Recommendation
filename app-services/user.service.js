@@ -5,8 +5,8 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    UserService.$inject = ['$http','$timeout'];
+    function UserService($http,$timeout) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -31,8 +31,20 @@
             return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
-        function Create(user) {
-            return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+        function Create(user,callback) {
+            console.log("in userservice.Create");
+            //return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+            console.log("creating user");
+            console.log(user);
+
+            $timeout(function () {
+            $http.post('/api/project/register', user)
+                .success(function (response) {
+                    console.log("registration reply");
+                    console.log(response);
+                    callback(response);
+                });
+            }, 1000);
         }
 
         function Update(user) {

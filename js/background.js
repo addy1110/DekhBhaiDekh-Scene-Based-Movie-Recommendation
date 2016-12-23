@@ -11,7 +11,7 @@ jQuery(document).ready(function() {
         "./img/backgrounds/8.jpg",
         "./img/backgrounds/7.jpg",
         "./img/backgrounds/5.jpg"
-    ], {duration: 10000, fade: 900});
+    ], {duration: 5000, fade: 900});
 
 
 });

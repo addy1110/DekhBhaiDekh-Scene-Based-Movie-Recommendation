@@ -4,12 +4,21 @@
 module.exports = function(app){
 
     var elasticsearch = require('elasticsearch');
+    var bodyParser    = require('body-parser');
+    app.use(bodyParser.json()); // for parsing application/json
+    app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
     var q = require("q");
+    var request = require("request");
+    var AWS = require('aws-sdk');
 
+    AWS.config.update({region: 'us-east-1'});
+
+
+    var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
     var client = new elasticsearch.Client({
-        host: 'https://search-test-movie-recommendation-oyp7fwybxby3qe5xlif23zl5d4.us-east-1.es.amazonaws.com/movieproject/Movies'
+        host: 'https://search-movies-5zcbuwmhuftqplir3dnm72jd4a.us-east-1.es.amazonaws.com/complete_movies'
     });
 
 
@@ -25,15 +34,28 @@ module.exports = function(app){
     function getMovie(type){
         var deferred = q.defer();
 
-        if(type == "init"){
-            var query = "mv01, mv02, mv03, mv04, mv05, mv06, mv07, mv08, mv09, mv10, mv11, mv12, mv13, mv14, mv15, mv16";
+        var queryType = type.split('|');
+        var queryKeyword = null;
+        var count = 0;
+        if(queryType[0] == "search"){
+            queryKeyword = queryType[1];
+            count = 20;
+        }
+        else{
+            queryKeyword = 'title:'+type;
+            count = 1
         }
 
+        console.log("querrying for this");
+        console.log(queryKeyword);
 
+        var index = [];
+        var values = [];
+        var uniqueResponse = [];
 
         client.search({
-            size: 16,
-            q: query
+            size: count,
+            q: queryKeyword
 
         }).then(function (body) {
             var hits = body.hits.hits;
@@ -48,19 +70,40 @@ module.exports = function(app){
 
     }
 
-    app.get("/api/users/:type",querysearch);
+    function checkValue(value){
+        var result = true;
+        for(var i=0; i<values.length; i++){
+            if(value == values[i]){
+                result =  false;
+            }
+        }
+        return result;
+    }
 
+    function pushingToSQS(req, res){
 
-    function querysearch(req,res){
+        var usersign = req.body;
+        console.log(usersign);
 
-        var type=req.params.type;
-        console.log(type);
-        // es(type)
-        //     .then(function(result){
-        //         console.log("hits length sent : "+result.length);
-        //         res.json(result)});
+        var sendParams = {
+            MessageBody: JSON.stringify(usersign),
+            /* required */
+            QueueUrl: 'https://sqs.us-east-1.amazonaws.com/829344914533/clickstreamdata', /* required */
+            DelaySeconds: 0,
+            MessageAttributes: {}
+        };
+
+        sqs.sendMessage(sendParams, function (err, data) {
+            if (err) console.log(err, err.stack); // an error occurred
+            else {
+                console.log("Pushed to SQS\n");
+
+            }
+        });
 
     }
+
+    app.post  ('/api/sqs/usersign', pushingToSQS);
 
     app.get("/api/es/:type", getData);
 

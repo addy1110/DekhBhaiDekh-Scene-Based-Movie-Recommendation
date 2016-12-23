@@ -1,4 +1,4 @@
-﻿
+﻿<!--  -->
 <head>
 
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -8,47 +8,6 @@
 
 <body>
 
-<!--<div id="home">-->
-    <!--<h3>Hi {{vm.user.firstName}}!</h3>-->
-    <!--<p>You're logged in!!</p>-->
-    <!--<h3>All registered users:</h3>-->
-    <!--<ul>-->
-        <!--<li ng-repeat="user in vm.allUsers">-->
-            <!--{{user.username}} ({{user.firstName}} {{user.lastName}})-->
-                            <!-- - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>-->
-        <!--</li>-->
-    <!--</ul>-->
-    <!--<p>&nbsp;</p>-->
-    <!--<button ng-click="go('/login')" class="btn">Logout</button>-->
-<!--</div>-->
-
-<!--<div class="container-fluid">-->
-    <!--<div class="col-md-5">-->
-    <!--<ul id="menu">-->
-        <!--<li><a href="#">Home</a></li>-->
-        <!--<li>-->
-            <!--<input type="text" name="searchTab" id="searchTab" class="search-control" placeholder="Search for Movies " ng-model="vm.searchValue"  />-->
-            <!--&lt;!&ndash;<i class="fa fa-search" aria-hidden="true"></i>&ndash;&gt;-->
-        <!--</li>-->
-        <!--<li>-->
-            <!--<a href="#">Categories</a>-->
-            <!--<ul>-->
-                <!--<li><a href="#">CSS</a></li>-->
-
-                <!--<li><a href="#">Graphic design</a></li>-->
-                <!--<li><a href="#">Development tools</a></li>-->
-                <!--<li><a href="#">Web design</a></li>-->
-            <!--</ul>-->
-        <!--</li>-->
-        <!--<li><a href="#">Action</a></li>-->
-        <!--<li><a href="#">Horror</a></li>-->
-        <!--<li><a href="#">Romance</a></li>-->
-        <!--<li><a href="#/login">Logout</a></li>-->
-    <!--</ul>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div>-->
-<!--Boostrap 1st Navbar-->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -65,36 +24,40 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Genre</a></li>
-                <li><a href="#">History</a></li>
+                <!--<li class="active"><a href="#">Genre</a></li>
+                <li><a href="#">History</a></li>-->
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Movies <div class="caret"></div></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genre <div class="caret"></div></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a ng-click="vm.logdata('Action')">Action</a></li>
+                        <li><a ng-click="vm.logdata('Romance')">Romance</a></li>
+                        <li><a ng-click="vm.logdata('Sci-fi')">Sci-Fi</a></li>
+                        <li><a ng-click="vm.logdata('Horror')">Horror</a></li>
+                        <li><a ng-click="vm.logdata('Comedy')">Comedy</a></li>
+                        <!--<li><a href="#" ng-click="logdata('Crime')">Crime</a></li>-->
+                        <li><a ng-click="logdata('Drama')">Drama</a></li>
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">One more separated link</a></li>-->
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" ng-submit="vm.searchMovie()" role="form">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="vm.searchKeyword" >
                 </div>
-                <button type="submit" class="btn-info">Search</button>
+                <button type="submit"  class="btn-info">Search</button>
             </form>
             <div class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
+                <li><a href="#">{{vm.userdata.firstname}} {{vm.userdata.lastname}}</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <div class="caret"></div></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Settings <div class="caret"></div></a>
                     <ul class="dropdown-menu">
-                        <h3 class="dropdown-header"> <span class="glyphicon glyphicon-user"></span><font size="4">Hi {{vm.user.firstName}}</font></h3>
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <h3 class="dropdown-header"> <span class="glyphicon glyphicon-user"></span><font size="4">Hi {{vm.userdata.firstname}}</font></h3>
+                        <!--<li><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li><a href="#">Something else here</a></li>-->
                         <li role="separator" class="divider"></li>
                         <li><a class="logout" ng-click="go('/login')"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
                     </ul>
@@ -104,26 +67,34 @@
     </div><!-- /.container-fluid -->
 </nav>
 
+<div class="movie_description" ng-show="vm.movie">
+    <div class="vidshow col-md-6 col-xs-12">
 
-    <div class="container">
-
-        <!--<iframe id="video1"
-                width="300" height="200"
-                src="/videos/1.mp4">
-        </iframe>-->
-
-        <img
-                ng-src="{{vm.imgToShow}}"
-                width="700"
-                height="450"
-        />
+        <video id="myVideo" width="500" height="400" value="true" ng-click="vm.videoPlay()">
+            <source ng-src="{{vm.videoSrc}}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
 
     </div>
 
-    <h2>{{vm.imgName}}</h2>
-
 </div>
 
+<div class="movie_details col-md-6 col-xs-12" ng-show="vm.movie">
+    <div class="Movies"><h3> Movie : {{vm.movie.movies[0].mv[0]._source.title}} </h3></div>
+    <div class="Year"><h4> Year : {{vm.movie.movies[0].mv[0]._source.release_year}} </h4></div>
+    <div class="Genre"><h4> Genre : {{vm.movie.movies[0].mv[0]._source.genres}} </h4></div>
+    <div class="Rating" ><h4> Rating : {{vm.movie.movies[0].mv[0]._source.rating}} </h4></div>
+    <div><h4>Cast : </h4></div>
+    <div class="Cast" ng-repeat="actor in vm.movie.movies[0].mv[0]._source.actors"><h4> {{actor}}</h4></div>
+    <div><h4>Director :</h4></div>
+    <div class="Director" ng-repeat="director in vm.movie.movies[0].mv[0]._source.directors"><h4>{{director}}</h4></div>
+    <div class="Description" ><h4> Description : </h4>
+        <p>{{vm.movie.movies[0].mv[0]._source.synopsis}}</p>
+    </div>
+</div>
+
+<!--<h2>{{vm.imgName}}</h2>-->
+</div>
 <!--
 <div ng-repeat="img in vm.imgSrc">
     <img ng-src="{{img}}"/>
@@ -132,19 +103,27 @@
     &lt;!&ndash;<img ng-src="https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"/>&ndash;&gt;
 
 </div>-->
-<div class="contain" >
+<!--<div class = "recommend col-md-6 col-xs-12">
+    <h3> Recommended for you! </h3>
+    &lt;!&ndash;<hr width="500">&ndash;&gt;
+</div>-->
+
+<div class="contain" ng-show="vm.movie">
+
 
     <div class="row">
+
         <div class="row__inner" >
 
             <div class="tile" ng-repeat="myimage in vm.myimg">
                 <div class="tile__media" >
                     <img class="tile__img" ng-src="{{myimage.imgSrc}}"  ng-click="vm.imgClick(myimage)"/>
+
                     <!--<h2 ng-show="ng-click">{{myimage}}</h2>-->
                 </div>
-                <!--<div class="tile__details"  ng-click="vm.imgClick($scope)">-->
+                <div class="tile__details"  ng-click="vm.imgClick(myimage)">
                     <!--<div class="tile__title">-->
-                        <!--Top Gear-->
+                    <!--{{myimage.title}}-->
                     <!--</div>-->
                 </div>
             </div>
@@ -152,5 +131,19 @@
     </div>
 
 </div>
+
+<!-- MDL Spinner Component -->
+<div  ng-hide="vm.movie" class="centered1">
+
+    <img src="/img/reload.gif">
+    <h4>Fetching Data.... </h4>
+</div>
+
+<script>
+    document.getElementById('myVideo').addEventListener('loadedmetadata', function() {
+        this.currentTime = 0.5;
+    }, false);
+
+</script>
 
 </body>

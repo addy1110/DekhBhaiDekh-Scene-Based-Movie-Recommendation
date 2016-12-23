@@ -5,8 +5,8 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope','$location', 'AuthenticationService', 'FlashService'];
-    function LoginController($scope,$location, AuthenticationService, FlashService) {
+    LoginController.$inject = ['$scope','$location', 'AuthenticationService', 'FlashService', '$q', '$http'];
+    function LoginController($scope,$location, AuthenticationService, FlashService, $q, $http) {
 
 
         $scope.go = function ( path ) {
@@ -25,11 +25,33 @@
             AuthenticationService.ClearCredentials();
         })();
 
+        function sendObjToSQS(usersign)
+        {
+            console.log(usersign);
+            var deferred = $q.defer();
+            $http.post("/api/sqs/usersign",usersign).success(function(response){
+                deferred.resolve(response);
+
+
+            });
+            console.log(deferred.promise);
+            return deferred.promise;
+
+        }
+
         function login() {
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.success) {
-                    var getDatetime = new Date();
+
+                console.log("In login Controler value returned");
+                console.log(response);
+
+                if(response.length!=0)
+                {
+
+                    /*var d = new Date();
+                    var getDatetime = Math.floor(d.getTime()/1000);
+
                     var userSign;
                     userSign = {
                         userid: vm.username,
@@ -38,9 +60,16 @@
                     };
                     console.log(userSign);
 
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
+                    sendObjToSQS(userSign);
+*/
+
+
+                    //AuthenticationService.SetCredentials(vm.username, vm.password);
+                    $location.path('/home');
                 } else {
+
+                    console.log(response);
+
                     FlashService.Error(response.message);
                     vm.dataLoading = false;
                 }

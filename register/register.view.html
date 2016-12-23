@@ -38,58 +38,49 @@
 
                     <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
                         <label class="fields" for="username">First name</label>
-                        <input type="text" name="firstName" id="firstName" class="form-control" ng-model="vm.user.firstName" required />
-                        <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+                        <input type="text" name="firstName" id="firstName" class="form-control" ng-model="vm.userdata.firstname" required />
+                        <!--<span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>-->
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }">
                         <label class="fields" for="username">Last name</label>
-                        <input type="text" name="lastName" id="Text1" class="form-control" ng-model="vm.user.lastName" required />
-                        <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
+                        <input type="text" name="lastName" id="Text1" class="form-control" ng-model="vm.userdata.lastname" required />
+                        <!--<span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>-->
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
                         <label class="fields" for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control" ng-model="vm.user.username" required />
-                        <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+                        <input type="text" name="username" id="username" class="form-control" ng-model="vm.userdata.userid" required />
+                        <!--<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>-->
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
                         <label class="fields" for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" required />
-                        <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                        <input type="password" name="password" id="password" class="form-control" ng-model="vm.userdata.pass" required />
+                        <!--<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>-->
                     </div>
 
                     <div class="form-group">
                         <h4>Email  <i class="fa fa-envelope" aria-hidden="true"></i></h4>
                         <label for="form-email" class="sr-only">Email</label>
-                        <input class="form-email form-control" type="email" placeholder="you@mail.com" id="form-email">
+                        <input class="form-email form-control" type="email" placeholder="you@mail.com" id="form-email" ng-model="vm.userdata.email" required >
                     </div>
 
                     <div class="form-group">
                         <h4>Birthday!   <i class="fa fa-birthday-cake" aria-hidden="true" ></i></h4>
                         <label for="form-date" class="sr-only">Date</label>
-                        <input class="form-date form-control" type="date" placeholder="dd/mm/yyyy" id="form-date">
+                        <input class="form-date form-control" type="date" placeholder="yyyy-mm-dd" id="form-date" ng-model="vm.userdata.dob" required >
                     </div>
 
 
                     <div class="form-group">
 
                         <h4>Genre! <i class="fa fa-music" aria-hidden="true"></i></h4>
-                        <div class="col-md-4">
-
-                            <input type="checkbox" id='Action'>  <label for="Action">Action</label><br>
-                            <input type="checkbox" id='Romance'>  <label for="Romance">Romance</label><br>
-                            <input type="checkbox" id='Drama'>  <label for="Drama">Drama</label>
-                        </div>
-
-                        <div class="col-md-4">
-                            <input type="checkbox" id='Horror'>  <label for="Horror">Horror</label><br>
-                            <input type="checkbox" id='Comedy'>  <label for="Comedy">Comedy</label><br>
-                            <input type="checkbox" id='Sci-Fi'>  <label for="Sci-Fi">Sci-Fi</label>
+                        <div class="col-md-4" ng-repeat="album in albums">
+                                <input type="checkbox"  ng-model="album.selected" value={{album.name}} /> <label> {{album.name}}</label>
                         </div>
 
                     </div>
 
 
-                    <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn">Sign me up!</button>
+                    <button type="submit"  class="btn">Sign me up!</button>
                     <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
 
@@ -102,26 +93,7 @@
                     <a class="btn btn-link-2" href="#">
                         <i class="fa fa-google-plus"></i> Google Plus
                     </a>
-                    <!--<div id="my-signin2"></div>-->
-                    <!--<script>-->
-                        <!--function onSuccess(googleUser) {-->
-                            <!--console.log('Logged in as: ' + googleUser.getBasicProfile().getName());-->
-                        <!--}-->
-                        <!--function onFailure(error) {-->
-                            <!--console.log(error);-->
-                        <!--}-->
-                        <!--function renderButton() {-->
-                            <!--gapi.signin2.render('my-signin2', {-->
-                                <!--'scope': 'profile email',-->
-                                <!--'width': 240,-->
-                                <!--'height': 50,-->
-                                <!--'longtitle': true,-->
-                                <!--'theme': 'dark',-->
-                                <!--'onsuccess': onSuccess,-->
-                                <!--'onfailure': onFailure-->
-                            <!--});-->
-                        <!--}-->
-                    <!--</script>-->
+
                     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
                     <a href="#/login" class="btn btn-link">Cancel</a>
                 </form>
