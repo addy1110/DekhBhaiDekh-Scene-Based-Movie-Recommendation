@@ -66,13 +66,14 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
 <div ng-show="vm.searchresponse" class="searchResult">
     <div class="searchContainer" ng-repeat="movie in vm.searchresponse" ng-hide="vm.showError">
-        <img ng-src="{{movie._source['picture_url']}}"/>
-        <h2>{{movie._source.title}}</h2>
+        <img ng-src="{{movie._source['picture_url']}}" ng-click="vm.searchedMovie(movie._source)"/>
+        <div ng-click="vm.searchedMovie(movie._source)"><h2>{{movie._source.title}} </h2></div>
         <h2>{{movie._source['release_year']}}</h2>
         <h2>{{movie._source.rating}}</h2>
-        <h2>{{movie._source.synopsis}}</h2>
+        <h5>{{movie._source.synopsis}}</h5>
     </div>
 
     <div ng-show="vm.showError">
@@ -121,16 +122,16 @@
     &lt;!&ndash;<hr width="500">&ndash;&gt;
 </div>-->
 
-<div class="contain" ng-show="vm.movie">
+<div class="contain" ng-show="vm.recommendedMovies">
 
 
     <div class="row">
 
         <div class="row__inner" >
 
-            <div class="tile" ng-repeat="myimage in vm.myimg">
+            <div class="tile" ng-repeat="myimage in vm.recommendedMovies.movies">
                 <div class="tile__media" >
-                    <img class="tile__img" ng-src="{{myimage.imgSrc}}"  ng-click="vm.imgClick(myimage)"/>
+                    <img class="tile__img" ng-src='{{myimage.mv[0]._source["picture_url"]}}'  ng-click="vm.imgClick(myimage)"/>
 
                     <!--<h2 ng-show="ng-click">{{myimage}}</h2>-->
                 </div>
@@ -146,7 +147,7 @@
 </div>
 
 <!-- MDL Spinner Component -->
-<div  ng-hide="vm.movie || vm.searchresponse" class="centered1">
+<div  ng-hide="vm.recommendedMovies || vm.searchresponse" class="centered1">
     <img src="/img/reload.gif">
     <h4>Fetching Data.... </h4>
 </div>

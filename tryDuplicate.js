@@ -9,46 +9,25 @@ var request = require("request");
 
 
 var client = new elasticsearch.Client({
-    host: 'https://search-movies-5zcbuwmhuftqplir3dnm72jd4a.us-east-1.es.amazonaws.com/complete_movies'
+    host: 'https://search-tweetymap-gurowqxu56ejw6kii5afincr3y.us-east-1.es.amazonaws.com/graph_data'
 });
 
 var index = [];
 var values = [];
 var uniqueResponse = [];
 client.search({
-    size: 20,
-    q: "Horror"
+    size: 1,
+    q: 'doctorstrange-2016:'
 }).then(function (body) {
 
     var hits = body.hits.hits;
     console.log("hits length : " + hits.length);
-    index = [];
+    /*index = [];
     values = [];
-    uniqueResponse = [];
+    uniqueResponse = [];*/
     for(var i=0;i<hits.length;i++){
-        if(hits[i]._source.rating == 'N/A'){
-            hits[i]._source.rating = '0';
-        }
-        if(checkValue(hits[i]._source.key) ) {
-            values.push(hits[i]._source.key);
-            index.push(i);
-        }
+        console.log(hits[i]._source);
     }
-    for(i=0;i<index.length;i++){
-        uniqueResponse.push(hits[index[i]]);
-    }
-
-    uniqueResponse.sort(function (a,b) {
-       return parseFloat(b._source.rating) - parseFloat(a._source.rating)
-    });
-
-    for(i=0;i<uniqueResponse.length;i++){
-        console.log(uniqueResponse[i]._source.genres);
-    }
-    console.log(values.length);
-    console.log(index.length);
-    console.log(uniqueResponse.length);
-
 
 
 }, function (error) {
@@ -56,14 +35,3 @@ client.search({
 
 });
 
-
-function checkValue(value){
-    var result = true;
-    if(values.length == 0) result = true;
-    for(var i=0; i<values.length; i++){
-        if(value == values[i]){
-            result =  false;
-        }
-    }
-    return result;
-}

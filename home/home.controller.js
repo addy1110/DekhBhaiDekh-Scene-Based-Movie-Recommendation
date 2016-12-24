@@ -12,10 +12,8 @@
         console.log(vm.userdata.userid);
         vm.myimg=[];
         vm.searchresponse=null;
-        vm.recommendedMovies = [];
-        vm.movieData=[];
+        vm.recommendedMovies = null;
         vm.movie= null;
-        console.log(vm.movie);
 
         var eventype = [
             '100',   // user sign in
@@ -46,24 +44,24 @@
 
           getMovieData(initObj).then(function (response) {
               try{
-                  vm.movie= response;
+                  vm.recommendedMovies = response;
 
-              console.log("init display:",vm.movie)
-              console.log("init display length :",vm.movie.movies.length)
+              console.log("init display:",vm.recommendedMovies);
+              console.log("init display length :",vm.recommendedMovies.movies.length)
 
 
-              for (var i=0;i<vm.movie.movies.length;i++){
-                  if(vm.movie.movies[i].mv[0]!= undefined){
+              for (var i=0;i<vm.recommendedMovies.movies.length;i++){
+                  if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
                       vm.myimg[i]={};
 
-                      vm.myimg[i].imgSrc = vm.movie.movies[i].mv[0]._source["picture_url"];
-                      vm.myimg[i].key = vm.movie.movies[i].mv[0]._source.key;
-                      vm.myimg[i].title = vm.movie.movies[i].mv[0]._source.title;
-                      vm.myimg[i]["release_year"] = vm.movie.movies[i].mv[0]._source["release_year"];
-                      vm.myimg[i].rating = vm.movie.movies[i].mv[0]._source.rating;
-                      vm.myimg[i].actors = vm.movie.movies[i].mv[0]._source.actors;
-                      vm.myimg[i].directors = vm.movie.movies[i].mv[0]._source.directors;
-                      vm.myimg[i].synopsis  = vm.movie.movies[i].mv[0]._source.synopsis;
+                      vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
+                      vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
+                      vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
+                      vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
+                      vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
+                      vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
+                      vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
+                      vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
                       console.log(vm.myimg[i]);
                   }
 
@@ -86,7 +84,7 @@
         console.log(vm.videoSrc);
 
         vm.imgClick = function(imgKey){
-            vm.searchresponse=null
+            vm.searchresponse=null;
             var movieselect;
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
@@ -121,35 +119,36 @@
                 genre : vm.userdata.genre
             };
 
-            vm.movie=null;
+            vm.recommendedMovies=null;
+            vm.movie= null;
             getMovieData(moviequery).then(function (response) {
                 try{
-                    vm.movie= response;
+                    vm.recommendedMovies= response;
 
-                console.log("init display:",vm.movie);
-                console.log("init display length :",vm.movie.movies.length);
+                console.log("init display:",vm.recommendedMovies);
+                console.log("init display length :",vm.recommendedMovies.movies.length);
 
-                    vm.movie.movies[0].mv[0]._source.title = imgKey.title;
-                    vm.movie.movies[0].mv[0]._source["release_year"] = imgKey["release_year"];
-                    vm.movie.movies[0].mv[0]._source.rating = imgKey.rating;
-                    vm.movie.movies[0].mv[0]._source.actors = imgKey.actors;
-                    vm.movie.movies[0].mv[0]._source.directors = imgKey.directors;
-                    vm.movie.movies[0].mv[0]._source.synopsis  = imgKey.synopsis;
+                    vm.recommendedMovies.movies[0].mv[0]._source.title = imgKey.title;
+                    vm.recommendedMovies.movies[0].mv[0]._source["release_year"] = imgKey["release_year"];
+                    vm.recommendedMovies.movies[0].mv[0]._source.rating = imgKey.rating;
+                    vm.recommendedMovies.movies[0].mv[0]._source.actors = imgKey.actors;
+                    vm.recommendedMovies.movies[0].mv[0]._source.directors = imgKey.directors;
+                    vm.recommendedMovies.movies[0].mv[0]._source.synopsis  = imgKey.synopsis;
                     // console.log(vm.movie.movies[0].mv[0]._source.synopsis);
 
 
-                for (var i=0;i<vm.movie.movies.length;i++){
-                    if(vm.movie.movies[i].mv[0]!= undefined){
+                for (var i=0;i<vm.recommendedMovies.movies.length;i++){
+                    if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
                         vm.myimg[i]={};
                         // .imgSrc=null
-                        vm.myimg[i].imgSrc = vm.movie.movies[i].mv[0]._source["picture_url"];
-                        vm.myimg[i].key = vm.movie.movies[i].mv[0]._source.key;
-                        vm.myimg[i].title = vm.movie.movies[i].mv[0]._source.title;
-                        vm.myimg[i]["release_year"] = vm.movie.movies[i].mv[0]._source["release_year"];
-                        vm.myimg[i].rating = vm.movie.movies[i].mv[0]._source.rating;
-                        vm.myimg[i].actors = vm.movie.movies[i].mv[0]._source.actors;
-                        vm.myimg[i].directors = vm.movie.movies[i].mv[0]._source.directors;
-                        vm.myimg[i].synopsis  = vm.movie.movies[i].mv[0]._source.synopsis;
+                        vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
+                        vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
+                        vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
+                        vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
+                        vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
+                        vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
+                        vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
+                        vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
                         console.log(vm.myimg[i]);
                     }
 
@@ -162,6 +161,7 @@
 
         $scope.go = function ( path ) {
             vm.searchresponse=null
+            vm.movie= null;
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
 
@@ -184,6 +184,7 @@
 
         vm.searchMovie = function(){
             vm.searchresponse=null;
+            vm.movie= null;
             console.log("search tab");
             console.log(vm.searchKeyword);
 
@@ -193,7 +194,7 @@
             var search = "search|"+vm.searchKeyword;
 
             //get movie details
-            vm.movie = null;
+            vm.recommendedMovies = null;
 
             $http.get("/api/es/" + search).success(
              function (response, err) {
@@ -235,9 +236,84 @@
 
         };
 
+        vm.searchedMovie = function(movieKey){
+            vm.searchresponse=null;
+            vm.recommendedMovies=null;
+            vm.movie= null;
+            console.log(movieKey.key);
+
+            var movieselect;
+            var d = new Date();
+            var getDatetime = Math.floor(d.getTime()/1000);
+
+            console.log(vm.userdata.userid);
+
+
+            /*if(vm.userdata.userid!=null) {
+                movieselect = {
+                    userid: vm.userdata.userid,
+                    timeStamp: getDatetime,
+                    eventType : 200,
+                    movieid: movieKey.key,
+                    genreid: null
+                };
+                console.log(movieselect);
+                sendObjToSQS(movieselect);
+            }*/
+
+            var moviequery = {
+                code: eventype[2],  //user selects a movie
+                userId : vm.userdata.userid,
+                movieId : movieKey.key,
+                genre : vm.userdata.genre
+            };
+
+
+            getMovieData(moviequery).then(function (response) {
+                try{
+                    vm.recommendedMovies= response;
+                    vm.movie= null;
+
+                    console.log("init display:",vm.recommendedMovies);
+                    console.log("init display length :",vm.recommendedMovies.movies.length);
+
+                    vm.recommendedMovies.movies[0].mv[0]._source.title = movieKey.title;
+                    vm.recommendedMovies.movies[0].mv[0]._source["release_year"] = movieKey["release_year"];
+                    vm.recommendedMovies.movies[0].mv[0]._source.rating = movieKey.rating;
+                    vm.recommendedMovies.movies[0].mv[0]._source.actors = movieKey.key;
+                    vm.recommendedMovies.movies[0].mv[0]._source.directors = movieKey.key;
+                    vm.recommendedMovies.movies[0].mv[0]._source.synopsis  = movieKey.synopsis;
+                    // console.log(vm.movie.movies[0].mv[0]._source.synopsis);
+
+
+                    for (var i=0;i<vm.recommendedMovies.movies.length;i++){
+                        if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
+                            vm.myimg[i]={};
+                            // .imgSrc=null
+                            vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
+                            vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
+                            vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
+                            vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
+                            vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
+                            vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
+                            vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
+                            vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
+                            console.log(vm.myimg[i]);
+                        }
+
+                    }
+                }catch(err){
+
+                }
+            })
+
+        };
+
+
         vm.logdata = function(genre){
             console.log(genre);
-            vm.searchresponse=null
+            vm.searchresponse=null;
+            vm.movie= null;
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
 
@@ -262,25 +338,26 @@
                 genre : genre
             };
 
-            vm.movie=null;
+            vm.recommendedMovies=null;
             getMovieData(genreMovieQuery).then(function (response) {
-                vm.movie= response;
-                console.log("init display:",vm.movie)
-                console.log("init display length :",vm.movie.movies.length)
+                vm.recommendedMovies= response;
+                vm.movie= null;
+                console.log("init display:",vm.recommendedMovies)
+                console.log("init display length :",vm.recommendedMovies.movies.length)
 
 
-                for (var i=0;i<vm.movie.movies.length;i++){
-                    if(vm.movie.movies[i].mv[0]!= undefined){
+                for (var i=0;i<vm.recommendedMovies.movies.length;i++){
+                    if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
                         vm.myimg[i]={}
                         // .imgSrc=null
-                        vm.myimg[i].imgSrc = vm.movie.movies[i].mv[0]._source["picture_url"];
-                        vm.myimg[i].key = vm.movie.movies[i].mv[0]._source.key;
-                        vm.myimg[i].title = vm.movie.movies[i].mv[0]._source.title;
-                        vm.myimg[i]["release_year"] = vm.movie.movies[i].mv[0]._source["release_year"];
-                        vm.myimg[i].rating = vm.movie.movies[i].mv[0]._source.rating;
-                        vm.myimg[i].actors = vm.movie.movies[i].mv[0]._source.actors;
-                        vm.myimg[i].directors = vm.movie.movies[i].mv[0]._source.directors;
-                        vm.myimg[i].synopsis  = vm.movie.movies[i].mv[0]._source.synopsis;
+                        vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
+                        vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
+                        vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
+                        vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
+                        vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
+                        vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
+                        vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
+                        vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
                         console.log(vm.myimg[i]);
                     }
 
@@ -308,7 +385,8 @@
         var playVideo = false;
 
         vm.videoPlay = function(){
-            vm.searchresponse=null
+            vm.searchresponse=null;
+            vm.movie= null;
             console.log("video played");
             var vid = document.getElementById("myVideo");
 
@@ -327,7 +405,7 @@
                         userid: vm.userdata.userid,
                         timeStamp: getDatetime,
                         eventType : 301,
-                        movieid: vm.movie.movies[0].mv[0]._source.key, //vm.movie.key,
+                        movieid: vm.recommendedMovies.movies[0].mv[0]._source.key, //vm.movie.key,
                         genreid: null
                     };
                     console.log(vidplayed);
@@ -347,7 +425,7 @@
                         userid: vm.userdata.userid,
                         timeStamp: gettime,
                         eventType : 302,
-                        movieid: vm.movie.movies[0].mv[0]._source.key, //vm.movie.key,
+                        movieid: vm.recommendedMovies.movies[0].mv[0]._source.key, //vm.movie.key,
                         genreid: null
                     };
                     console.log(vidpaused);
@@ -360,6 +438,7 @@
 
         function getMovieData(obj) {
             vm.searchresponse=null;
+            vm.movie= null;
             var deferred = $q.defer();
             $.ajax({
                 url: 'http://tweetygooglemap-dev.v3a2wmjgrc.us-west-2.elasticbeanstalk.com/post/',
