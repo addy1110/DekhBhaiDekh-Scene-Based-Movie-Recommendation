@@ -25,6 +25,31 @@ module.exports = function(app){
     });
 
 
+    function getMovieData(type){
+
+        var deferred = q.defer();
+
+        console.log("querring for movie : "+type);
+        client.search({
+            size: 1,
+            q: 'key:'+type
+
+        }).then(function (body) {
+
+            var hits = body.hits.hits;
+            console.log("hits length : " + hits.length);
+            console.log("movie key : "+hits[0]._source.key);
+            deferred.resolve(hits[0]);
+        }, function (error) {
+            console.trace(error.message);
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
+
+    }
+
+
     function getMovie(type){
         var deferred = q.defer();
 
@@ -127,6 +152,17 @@ module.exports = function(app){
     app.post  ('/api/sqs/usersign', pushingToSQS);
 
     app.get("/api/es/:type", getData);
+    app.get("/api/es/moviekey/:type", getMovieDetails);
+
+
+    function getMovieDetails(request, respond){
+        var type = request.params.type;
+        console.log("key : "+type);
+        getMovieData(type)
+            .then(function(movieData){
+                console.log("result is "+movieData._source.synopsis);
+                respond.json(movieData)});
+    }
 
     function getData(req, res){
         var type = req.params.type;

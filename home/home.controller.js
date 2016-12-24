@@ -47,25 +47,11 @@
                   vm.recommendedMovies = response;
 
               console.log("init display:",vm.recommendedMovies);
-              console.log("init display length :",vm.recommendedMovies.movies.length)
+              console.log("init display length :",vm.recommendedMovies.movies.length);
 
+              vm.movie = vm.recommendedMovies.movies[0].mv[0];
+              console.log(vm.movie._source.key);
 
-              for (var i=0;i<vm.recommendedMovies.movies.length;i++){
-                  if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
-                      vm.myimg[i]={};
-
-                      vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
-                      vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
-                      vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
-                      vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
-                      vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
-                      vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
-                      vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
-                      vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
-                      console.log(vm.myimg[i]);
-                  }
-
-              }
               }catch(err){
 
               }
@@ -74,93 +60,73 @@
 
         init();
 
-        if(vm.movie == null){
+        /*if(vm.movie == null){
             vm.videoSrc =  "/videos/1.mp4"
+            console.log("video : "+vm.videoSrc);
         }
         else{
-            vm.videoSrc =  vm.movie[0]._source["video_urls"];
-        }
+            vm.videoSrc =  vm.movie._source["video_urls"]["s3_url"] || vm.movie._source["video_urls"]["youtube_url"] || "/videos/1.mp4";
+            console.log("video : "+vm.videoSrc);
+        }*/
 
-        console.log(vm.videoSrc);
-
-        vm.imgClick = function(imgKey){
-            vm.searchresponse=null;
+        vm.imgClick = function(movieObj){
             var movieselect;
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
 
-            // vm.imgToShow = $scope.imgSrc;
-            console.log("image is ");
-            console.log(imgKey.key);
-            // vm.imgName=$scope.name;
-
-            // vm.imgToShow=;
-            // vm.imgName=$scope.name;
+            console.log(movieObj);
 
             console.log(vm.userdata.userid);
 
 
-            if(vm.userdata.userid!=null) {
+            /*if(vm.userdata.userid!=null) {
                 movieselect = {
                     userid: vm.userdata.userid,
                     timeStamp: getDatetime,
                     eventType : 200,
-                    movieid: imgKey.key,
+                    movieid: movieObj.mv[0]._source.key,
                     genreid: null
                 };
                 console.log(movieselect);
                 sendObjToSQS(movieselect);
-            }
+            }*/
+            vm.movie= null;
+            console.log("movie selected " + movieObj.key);
+
+            $http.get("/api/es/moviekey/" + movieObj.key).success(
+                function (response) {
+
+                    console.log("movie received is ");
+                    console.log(response);
+                    if(response.length!=0){
+                        vm.movie = response;
+                    }else{
+                        vm.movie = ["error"];
+                    }
+
+                });
 
             var moviequery = {
                 code: eventype[2],  //user selects a movie
                 userId : vm.userdata.userid,
-                movieId : imgKey.key,
+                movieId : movieObj.key,
                 genre : vm.userdata.genre
             };
-
+            console.log("querrying for recommendation : ");
+            console.log(moviequery);
             vm.recommendedMovies=null;
-            vm.movie= null;
+
             getMovieData(moviequery).then(function (response) {
-                try{
                     vm.recommendedMovies= response;
 
                 console.log("init display:",vm.recommendedMovies);
                 console.log("init display length :",vm.recommendedMovies.movies.length);
 
-                    vm.recommendedMovies.movies[0].mv[0]._source.title = imgKey.title;
-                    vm.recommendedMovies.movies[0].mv[0]._source["release_year"] = imgKey["release_year"];
-                    vm.recommendedMovies.movies[0].mv[0]._source.rating = imgKey.rating;
-                    vm.recommendedMovies.movies[0].mv[0]._source.actors = imgKey.actors;
-                    vm.recommendedMovies.movies[0].mv[0]._source.directors = imgKey.directors;
-                    vm.recommendedMovies.movies[0].mv[0]._source.synopsis  = imgKey.synopsis;
-                    // console.log(vm.movie.movies[0].mv[0]._source.synopsis);
-
-
-                for (var i=0;i<vm.recommendedMovies.movies.length;i++){
-                    if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
-                        vm.myimg[i]={};
-                        // .imgSrc=null
-                        vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
-                        vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
-                        vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
-                        vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
-                        vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
-                        vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
-                        vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
-                        vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
-                        console.log(vm.myimg[i]);
-                    }
-
-                }
-                }catch(err){
-
-                }
             })
         };
 
         $scope.go = function ( path ) {
-            vm.searchresponse=null
+            vm.searchresponse=null;
             vm.movie= null;
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
@@ -183,7 +149,6 @@
 
 
         vm.searchMovie = function(){
-            vm.searchresponse=null;
             vm.movie= null;
             console.log("search tab");
             console.log(vm.searchKeyword);
@@ -211,11 +176,6 @@
                     console.log("Error is "+err);
 
                 }
-
-
-
-
-
              /*var userevent;
              if(vm.userdata.userid!=null && vm.searchresponse[0]._source.key!=null) {
                  userevent = {
@@ -238,8 +198,7 @@
 
         vm.searchedMovie = function(movieKey){
             vm.searchresponse=null;
-            vm.recommendedMovies=null;
-            vm.movie= null;
+
             console.log(movieKey.key);
 
             var movieselect;
@@ -247,7 +206,6 @@
             var getDatetime = Math.floor(d.getTime()/1000);
 
             console.log(vm.userdata.userid);
-
 
             /*if(vm.userdata.userid!=null) {
                 movieselect = {
@@ -261,6 +219,21 @@
                 sendObjToSQS(movieselect);
             }*/
 
+            console.log("movie select "+movieKey.key);
+            vm.movie= null;
+            $http.get("/api/es/moviekey/" + movieKey.key).success(
+                function (response) {
+
+                    console.log("movie received is ");
+                    console.log(response);
+                    if(response.length!=0){
+                        vm.movie = response;
+                    }else{
+                        vm.movie = ["error"];
+                    }
+                    console.log(vm.movie._source.title);
+                });
+
             var moviequery = {
                 code: eventype[2],  //user selects a movie
                 userId : vm.userdata.userid,
@@ -268,7 +241,7 @@
                 genre : vm.userdata.genre
             };
 
-
+            vm.recommendedMovies=null;
             getMovieData(moviequery).then(function (response) {
                 try{
                     vm.recommendedMovies= response;
@@ -277,31 +250,6 @@
                     console.log("init display:",vm.recommendedMovies);
                     console.log("init display length :",vm.recommendedMovies.movies.length);
 
-                    vm.recommendedMovies.movies[0].mv[0]._source.title = movieKey.title;
-                    vm.recommendedMovies.movies[0].mv[0]._source["release_year"] = movieKey["release_year"];
-                    vm.recommendedMovies.movies[0].mv[0]._source.rating = movieKey.rating;
-                    vm.recommendedMovies.movies[0].mv[0]._source.actors = movieKey.key;
-                    vm.recommendedMovies.movies[0].mv[0]._source.directors = movieKey.key;
-                    vm.recommendedMovies.movies[0].mv[0]._source.synopsis  = movieKey.synopsis;
-                    // console.log(vm.movie.movies[0].mv[0]._source.synopsis);
-
-
-                    for (var i=0;i<vm.recommendedMovies.movies.length;i++){
-                        if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
-                            vm.myimg[i]={};
-                            // .imgSrc=null
-                            vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
-                            vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
-                            vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
-                            vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
-                            vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
-                            vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
-                            vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
-                            vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
-                            console.log(vm.myimg[i]);
-                        }
-
-                    }
                 }catch(err){
 
                 }
@@ -341,35 +289,16 @@
             vm.recommendedMovies=null;
             getMovieData(genreMovieQuery).then(function (response) {
                 vm.recommendedMovies= response;
-                vm.movie= null;
-                console.log("init display:",vm.recommendedMovies)
+                vm.movie = vm.recommendedMovies.movies[0].mv[0];
+                console.log("init display:",vm.recommendedMovies);
                 console.log("init display length :",vm.recommendedMovies.movies.length)
-
-
-                for (var i=0;i<vm.recommendedMovies.movies.length;i++){
-                    if(vm.recommendedMovies.movies[i].mv[0]!= undefined){
-                        vm.myimg[i]={}
-                        // .imgSrc=null
-                        vm.myimg[i].imgSrc = vm.recommendedMovies.movies[i].mv[0]._source["picture_url"];
-                        vm.myimg[i].key = vm.recommendedMovies.movies[i].mv[0]._source.key;
-                        vm.myimg[i].title = vm.recommendedMovies.movies[i].mv[0]._source.title;
-                        vm.myimg[i]["release_year"] = vm.recommendedMovies.movies[i].mv[0]._source["release_year"];
-                        vm.myimg[i].rating = vm.recommendedMovies.movies[i].mv[0]._source.rating;
-                        vm.myimg[i].actors = vm.recommendedMovies.movies[i].mv[0]._source.actors;
-                        vm.myimg[i].directors = vm.recommendedMovies.movies[i].mv[0]._source.directors;
-                        vm.myimg[i].synopsis  = vm.recommendedMovies.movies[i].mv[0]._source.synopsis;
-                        console.log(vm.myimg[i]);
-                    }
-
-                }
-            })
+            });
 
             //$location.path( path );
         };
 
         function sendObjToSQS(userev)
         {
-            // var q = require("q");
             var deferred = $q.defer();
             console.log(userev);
             $http.post("/api/sqs/usersign",userev).success(function(response){
@@ -385,8 +314,6 @@
         var playVideo = false;
 
         vm.videoPlay = function(){
-            vm.searchresponse=null;
-            vm.movie= null;
             console.log("video played");
             var vid = document.getElementById("myVideo");
 
@@ -457,6 +384,7 @@
             });
             return deferred.promise;
         }
+
 
     }
 

@@ -69,8 +69,8 @@
 
 <div ng-show="vm.searchresponse" class="searchResult">
     <div class="searchContainer" ng-repeat="movie in vm.searchresponse" ng-hide="vm.showError">
-        <img ng-src="{{movie._source['picture_url']}}" ng-click="vm.searchedMovie(movie._source)"/>
-        <div ng-click="vm.searchedMovie(movie._source)"><h2>{{movie._source.title}} </h2></div>
+        <img ng-src="{{movie._source['picture_url']}}" ng-click="vm.imgClick(movie._source)"/>
+        <div ng-click="vm.imgClick(movie._source)"><h2>{{movie._source.title}} </h2></div>
         <h2>{{movie._source['release_year']}}</h2>
         <h2>{{movie._source.rating}}</h2>
         <h5>{{movie._source.synopsis}}</h5>
@@ -81,11 +81,11 @@
     </div>
 
 </div>
-<div class="movie_description" ng-show="vm.movie">
+<div class="movie_description" ng-show="vm.movie && vm.recommendedMovies">
     <div class="vidshow col-md-6 col-xs-12">
 
         <video id="myVideo" width="500" height="400" value="true" ng-click="vm.videoPlay()">
-            <source ng-src="{{vm.videoSrc}}" type="video/mp4">
+            <source ng-src='{{vm.movie._source["video_urls"]["s3_url"] || vm.movie._source["video_urls"]["youtube_url"] || "/videos/1.mp4"}}'>
             Your browser does not support HTML5 video.
         </video>
 
@@ -93,17 +93,17 @@
 
 </div>
 
-<div class="movie_details col-md-6 col-xs-12" ng-show="vm.movie">
-    <div class="Movies"><h3> Movie : {{vm.movie.movies[0].mv[0]._source.title}} </h3></div>
-    <div class="Year"><h4> Year : {{vm.movie.movies[0].mv[0]._source.release_year}} </h4></div>
-    <div class="Genre"><h4> Genre : {{vm.movie.movies[0].mv[0]._source.genres}} </h4></div>
-    <div class="Rating" ><h4> Rating : {{vm.movie.movies[0].mv[0]._source.rating}} </h4></div>
+<div class="movie_details col-md-6 col-xs-12" ng-show="(vm.movie && vm.recommendedMovies) || vm.recommendedMovies">
+    <div class="Movies"><h3> Movie : {{vm.movie._source.title}} </h3></div>
+    <div class="Year"><h4> Year : {{vm.movie._source.release_year}} </h4></div>
+    <div class="Genre"><h4> Genre : {{vm.movie._source.genres}} </h4></div>
+    <div class="Rating" ><h4> Rating : {{vm.movie._source.rating}} </h4></div>
     <div><h4>Cast : </h4></div>
-    <div class="Cast" ng-repeat="actor in vm.movie.movies[0].mv[0]._source.actors"><h4> {{actor}}</h4></div>
+    <div class="Cast" ng-repeat="actor in vm.movie._source.actors"><h4> {{actor}}</h4></div>
     <div><h4>Director :</h4></div>
-    <div class="Director" ng-repeat="director in vm.movie.movies[0].mv[0]._source.directors"><h4>{{director}}</h4></div>
+    <div class="Director" ng-repeat="director in vm.movie._source.directors"><h4>{{director}}</h4></div>
     <div class="Description" ><h4> Description : </h4>
-        <p>{{vm.movie.movies[0].mv[0]._source.synopsis}}</p>
+        <p>{{vm.movie._source.synopsis}}</p>
     </div>
 </div>
 
@@ -131,11 +131,11 @@
 
             <div class="tile" ng-repeat="myimage in vm.recommendedMovies.movies">
                 <div class="tile__media" >
-                    <img class="tile__img" ng-src='{{myimage.mv[0]._source["picture_url"]}}'  ng-click="vm.imgClick(myimage)"/>
+                    <img class="tile__img" ng-src='{{myimage.mv[0]._source["picture_url"]}}'  ng-click="vm.imgClick(myimage.mv[0]._source)"/>
 
                     <!--<h2 ng-show="ng-click">{{myimage}}</h2>-->
                 </div>
-                <div class="tile__details"  ng-click="vm.imgClick(myimage)">
+                <div class="tile__details"  ng-click="vm.imgClick(myimage.mv[0]._source)">
                     <!--<div class="tile__title">-->
                     <!--{{myimage.title}}-->
                     <!--</div>-->
