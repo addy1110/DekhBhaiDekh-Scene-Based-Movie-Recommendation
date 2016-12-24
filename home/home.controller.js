@@ -11,10 +11,10 @@
         vm.userdata = $rootScope.user[0];
         console.log(vm.userdata.userid);
         vm.myimg=[];
-        vm.searchresponse=[];
+        vm.searchresponse=null;
         vm.recommendedMovies = [];
         vm.movieData=[];
-        vm.movie= {};
+        vm.movie= null;
         console.log(vm.movie);
 
         var eventype = [
@@ -76,7 +76,7 @@
 
         init();
 
-        if(angular.equals(vm.movie,{})){
+        if(vm.movie == null){
             vm.videoSrc =  "/videos/1.mp4"
         }
         else{
@@ -86,7 +86,7 @@
         console.log(vm.videoSrc);
 
         vm.imgClick = function(imgKey){
-
+            vm.searchresponse=null
             var movieselect;
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
@@ -161,7 +161,7 @@
         };
 
         $scope.go = function ( path ) {
-
+            vm.searchresponse=null
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
 
@@ -180,10 +180,10 @@
         };
 
         vm.searchKeyword=null;
-        vm.movieid=null;
+
 
         vm.searchMovie = function(){
-
+            vm.searchresponse=null;
             console.log("search tab");
             console.log(vm.searchKeyword);
 
@@ -193,15 +193,24 @@
             var search = "search|"+vm.searchKeyword;
 
             //get movie details
-            $.get("/api/es/" + search,
-             function (response) {
+            vm.movie = null;
 
+            $http.get("/api/es/" + search).success(
+             function (response, err) {
+                 vm.showError = false;
                 console.log(response);
+                if(response.length!=0){
+                    vm.searchresponse = response;
+                }else{
+                    vm.searchresponse = ["error"];
+                    vm.showError = true;
+                }
 
+                if(err){
+                    console.log("Error is "+err);
 
-                /* for(var i=0;i<uniqueResponse.length;i++){
-                     vm.searchresponse[i] = uniqueResponse[i]._source.key;
-                 }*/
+                }
+
 
 
 
@@ -220,54 +229,6 @@
                  sendObjToSQS(userevent);
              }
              */
-
-                 /*var searchMovieQuery = {
-                     code: eventype[2],  //user selects a movie
-                     userId : vm.userdata.userid,
-                     movieId : vm.searchresponse[0]._source.key,
-                     genre : vm.userdata.genre
-                 };
-
-                 vm.movie=null;
-                 console.log("searching.....");
-                 console.log(searchMovieQuery);
-
-                 getMovieData(searchMovieQuery).then(function (response) {
-                     vm.movie= response;
-                     console.log("init display:",vm.movie);
-                     console.log("init display length :",vm.movie.movies.length);
-
-                    // vm.movie.movies[0] =  vm.searchresponse;
-                    //  console.log("searched movie is...");
-                    //  console.log(vm.movie.movies[0]);
-                     console.log("correct this");
-
-                     vm.movie.movies[0].mv[0]._source.title = vm.searchresponse[0]._source.title;
-                     vm.movie.movies[0].mv[0]._source["release_year"] = vm.searchresponse[0]._source["release_year"];
-                     vm.movie.movies[0].mv[0]._source.rating = vm.searchresponse[0]._source.rating;
-                     vm.movie.movies[0].mv[0]._source.actors = vm.searchresponse[0]._source.actors;
-                     vm.movie.movies[0].mv[0]._source.directors = vm.searchresponse[0]._source.directors;
-                     vm.movie.movies[0].mv[0]._source.synopsis  = vm.searchresponse[0]._source.synopsis;
-                     console.log(vm.movie.movies[0].mv[0]._source.synopsis);
-
-
-                     for (var i=0;i<vm.movie.movies.length;i++){
-                         if(vm.movie.movies[i].mv[0]!= undefined){
-                             vm.myimg[i]={}
-                             // .imgSrc=null
-                             vm.myimg[i].imgSrc = vm.movie.movies[i].mv[0]._source["picture_url"];
-                             vm.myimg[i].key = vm.movie.movies[i].mv[0]._source.key;
-                             vm.myimg[i].title = vm.movie.movies[i].mv[0]._source.title;
-                             vm.myimg[i]["release_year"] = vm.movie.movies[i].mv[0]._source["release_year"];
-                             vm.myimg[i].rating = vm.movie.movies[i].mv[0]._source.rating;
-                             vm.myimg[i].actors = vm.movie.movies[i].mv[0]._source.actors;
-                             vm.myimg[i].directors = vm.movie.movies[i].mv[0]._source.directors;
-                             vm.myimg[i].synopsis  = vm.movie.movies[i].mv[0]._source.synopsis;
-                             console.log(vm.myimg[i]);
-                         }
-
-                     }
-                 })*/
              });
 
 
@@ -276,7 +237,7 @@
 
         vm.logdata = function(genre){
             console.log(genre);
-
+            vm.searchresponse=null
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
 
@@ -347,6 +308,7 @@
         var playVideo = false;
 
         vm.videoPlay = function(){
+            vm.searchresponse=null
             console.log("video played");
             var vid = document.getElementById("myVideo");
 
@@ -397,7 +359,7 @@
         };
 
         function getMovieData(obj) {
-
+            vm.searchresponse=null;
             var deferred = $q.defer();
             $.ajax({
                 url: 'http://tweetygooglemap-dev.v3a2wmjgrc.us-west-2.elasticbeanstalk.com/post/',

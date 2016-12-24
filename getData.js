@@ -11,6 +11,9 @@ module.exports = function(app){
     var q = require("q");
     var request = require("request");
     var AWS = require('aws-sdk');
+    var index = [];
+    var values = [];
+    var uniqueResponse = [];
 
     AWS.config.update({region: 'us-east-1'});
 
@@ -49,18 +52,53 @@ module.exports = function(app){
         console.log("querrying for this");
         console.log(queryKeyword);
 
-        var index = [];
-        var values = [];
-        var uniqueResponse = [];
-
         client.search({
             size: count,
             q: queryKeyword
 
         }).then(function (body) {
+
             var hits = body.hits.hits;
-            console.log("hits count : "+hits.length);
-            deferred.resolve(hits);
+            console.log("hits length : " + hits.length);
+            index = [];
+            values = [];
+            uniqueResponse = [];
+            for(var i=0;i<hits.length;i++){
+                if(hits[i]._source.rating == 'N/A'){
+                    hits[i]._source.rating = '0';
+                }
+                if(checkValue(hits[i]._source.key) ) {
+                    values.push(hits[i]._source.key);
+                    index.push(i);
+                }
+            }
+            for(i=0;i<index.length;i++){
+                uniqueResponse.push(hits[index[i]]);
+            }
+
+            uniqueResponse.sort(function (a,b) {
+                return parseFloat(b._source.rating) - parseFloat(a._source.rating)
+            });
+
+            for(i=0;i<uniqueResponse.length;i++){
+                console.log(uniqueResponse[i]._source.key);
+            }
+            console.log(values.length);
+            console.log(index.length);
+            console.log(uniqueResponse.length);
+
+            function checkValue(value){
+                var result = true;
+                if(values.length == 0) result = true;
+                for(var i=0; i<values.length; i++){
+                    if(value == values[i]){
+                        result =  false;
+                    }
+                }
+                return result;
+            }
+
+            deferred.resolve(uniqueResponse);
         }, function (error) {
             console.trace(error.message);
             deferred.reject(error);
@@ -70,15 +108,7 @@ module.exports = function(app){
 
     }
 
-    function checkValue(value){
-        var result = true;
-        for(var i=0; i<values.length; i++){
-            if(value == values[i]){
-                result =  false;
-            }
-        }
-        return result;
-    }
+
 
     function pushingToSQS(req, res){
 

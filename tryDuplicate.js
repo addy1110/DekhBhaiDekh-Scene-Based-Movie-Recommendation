@@ -17,40 +17,53 @@ var values = [];
 var uniqueResponse = [];
 client.search({
     size: 20,
-    q: "basketball"
+    q: "Horror"
 }).then(function (body) {
+
     var hits = body.hits.hits;
+    console.log("hits length : " + hits.length);
+    index = [];
+    values = [];
+    uniqueResponse = [];
     for(var i=0;i<hits.length;i++){
+        if(hits[i]._source.rating == 'N/A'){
+            hits[i]._source.rating = '0';
+        }
         if(checkValue(hits[i]._source.key) ) {
             values.push(hits[i]._source.key);
             index.push(i);
-            console.log(hits[i]._source.key+" "+hits[i]._source.rating);
         }
     }
     for(i=0;i<index.length;i++){
         uniqueResponse.push(hits[index[i]]);
     }
 
+    uniqueResponse.sort(function (a,b) {
+       return parseFloat(b._source.rating) - parseFloat(a._source.rating)
+    });
 
-    console.log(index);
-    console.log(values);
-    console.log(uniqueResponse);
+    for(i=0;i<uniqueResponse.length;i++){
+        console.log(uniqueResponse[i]._source.genres);
+    }
+    console.log(values.length);
+    console.log(index.length);
     console.log(uniqueResponse.length);
 
-    deferred.resolve(hits);
+
+
 }, function (error) {
     console.trace(error.message);
-    deferred.reject(error);
 
 });
-return deferred.promise;
+
 
 function checkValue(value){
     var result = true;
+    if(values.length == 0) result = true;
     for(var i=0; i<values.length; i++){
         if(value == values[i]){
             result =  false;
         }
     }
-return result;
+    return result;
 }

@@ -66,7 +66,20 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<div ng-show="vm.searchresponse" class="searchResult">
+    <div class="searchContainer" ng-repeat="movie in vm.searchresponse" ng-hide="vm.showError">
+        <img ng-src="{{movie._source['picture_url']}}"/>
+        <h2>{{movie._source.title}}</h2>
+        <h2>{{movie._source['release_year']}}</h2>
+        <h2>{{movie._source.rating}}</h2>
+        <h2>{{movie._source.synopsis}}</h2>
+    </div>
 
+    <div ng-show="vm.showError">
+        <h3>No Result Found</h3>
+    </div>
+
+</div>
 <div class="movie_description" ng-show="vm.movie">
     <div class="vidshow col-md-6 col-xs-12">
 
@@ -133,11 +146,12 @@
 </div>
 
 <!-- MDL Spinner Component -->
-<div  ng-hide="vm.movie" class="centered1">
-
+<div  ng-hide="vm.movie || vm.searchresponse" class="centered1">
     <img src="/img/reload.gif">
     <h4>Fetching Data.... </h4>
 </div>
+
+
 
 <script>
     document.getElementById('myVideo').addEventListener('loadedmetadata', function() {
