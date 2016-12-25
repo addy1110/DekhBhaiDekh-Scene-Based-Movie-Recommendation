@@ -13,7 +13,9 @@
         vm.myimg=[];
         vm.searchresponse=null;
         vm.recommendedMovies = null;
+        vm.recommendedMoviesData = null;
         vm.movie= null;
+        vm.interMovie = null;
 
         var eventype = [
             '100',   // user sign in
@@ -43,20 +45,14 @@
 
 
           getMovieData(initObj).then(function (response) {
-              try{
-                  vm.recommendedMovies = response;
 
-              console.log("init display:",vm.recommendedMovies);
-              console.log("init display length :",vm.recommendedMovies.movies.length);
+                vm.recommendedMovies = response;
+                getRecommendedMoviesData(vm.recommendedMovies,1);
 
-              vm.movie = vm.recommendedMovies.movies[0].mv[0];
-              console.log(vm.movie._source.key);
-
-              }catch(err){
-
-              }
           })
+
         };
+
 
         init();
 
@@ -115,12 +111,12 @@
             console.log("querrying for recommendation : ");
             console.log(moviequery);
             vm.recommendedMovies=null;
+            vm.recommendedMoviesData=null;
 
             getMovieData(moviequery).then(function (response) {
-                    vm.recommendedMovies= response;
 
-                console.log("init display:",vm.recommendedMovies);
-                console.log("init display length :",vm.recommendedMovies.movies.length);
+                vm.recommendedMovies= response;
+                getRecommendedMoviesData(vm.recommendedMovies, 2);
 
             })
         };
@@ -128,6 +124,7 @@
         $scope.go = function ( path ) {
             vm.searchresponse=null;
             vm.movie= null;
+            vm.recommendedMoviesData = null;
             var d = new Date();
             var getDatetime = Math.floor(d.getTime()/1000);
 
@@ -196,68 +193,6 @@
 
         };
 
-        vm.searchedMovie = function(movieKey){
-            vm.searchresponse=null;
-
-            console.log(movieKey.key);
-
-            var movieselect;
-            var d = new Date();
-            var getDatetime = Math.floor(d.getTime()/1000);
-
-            console.log(vm.userdata.userid);
-
-            /*if(vm.userdata.userid!=null) {
-                movieselect = {
-                    userid: vm.userdata.userid,
-                    timeStamp: getDatetime,
-                    eventType : 200,
-                    movieid: movieKey.key,
-                    genreid: null
-                };
-                console.log(movieselect);
-                sendObjToSQS(movieselect);
-            }*/
-
-            console.log("movie select "+movieKey.key);
-            vm.movie= null;
-            $http.get("/api/es/moviekey/" + movieKey.key).success(
-                function (response) {
-
-                    console.log("movie received is ");
-                    console.log(response);
-                    if(response.length!=0){
-                        vm.movie = response;
-                    }else{
-                        vm.movie = ["error"];
-                    }
-                    console.log(vm.movie._source.title);
-                });
-
-            var moviequery = {
-                code: eventype[2],  //user selects a movie
-                userId : vm.userdata.userid,
-                movieId : movieKey.key,
-                genre : vm.userdata.genre
-            };
-
-            vm.recommendedMovies=null;
-            getMovieData(moviequery).then(function (response) {
-                try{
-                    vm.recommendedMovies= response;
-                    vm.movie= null;
-
-                    console.log("init display:",vm.recommendedMovies);
-                    console.log("init display length :",vm.recommendedMovies.movies.length);
-
-                }catch(err){
-
-                }
-            })
-
-        };
-
-
         vm.logdata = function(genre){
             console.log(genre);
             vm.searchresponse=null;
@@ -288,10 +223,10 @@
 
             vm.recommendedMovies=null;
             getMovieData(genreMovieQuery).then(function (response) {
+
                 vm.recommendedMovies= response;
-                vm.movie = vm.recommendedMovies.movies[0].mv[0];
-                console.log("init display:",vm.recommendedMovies);
-                console.log("init display length :",vm.recommendedMovies.movies.length)
+
+                getRecommendedMoviesData(vm.recommendedMovies, 1);
             });
 
             //$location.path( path );
@@ -332,7 +267,7 @@
                         userid: vm.userdata.userid,
                         timeStamp: getDatetime,
                         eventType : 301,
-                        movieid: vm.recommendedMovies.movies[0].mv[0]._source.key, //vm.movie.key,
+                        movieid: vm.movie._source.key, //vm.movie.key,
                         genreid: null
                     };
                     console.log(vidplayed);
@@ -352,7 +287,7 @@
                         userid: vm.userdata.userid,
                         timeStamp: gettime,
                         eventType : 302,
-                        movieid: vm.recommendedMovies.movies[0].mv[0]._source.key, //vm.movie.key,
+                        movieid: vm.movie._source.key, //vm.movie.key,
                         genreid: null
                     };
                     console.log(vidpaused);
@@ -374,15 +309,57 @@
                 success: function (response) {
                     console.log("recommend");
                     console.log(response);
-                   try {
-                       console.log("Final data is ");
-                       deferred.resolve(response)
-                   }
-                   catch(err){
-                   }
+                    if(response.movies.length == 0){
+                        console.log("no recommendations received");
+                    }else{
+                        console.log("everything is ok");
+                    }
+                    deferred.resolve(response)
                 }
             });
             return deferred.promise;
+        }
+
+        function getAllMovieData(query){
+            var deferred = $q.defer();
+            $http.get("/api/es/" + query).success(
+                function (response) {
+
+                    console.log(response);
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+        }
+
+        function getRecommendedMoviesData(recommendedMovies, code){
+            console.log("init display:",recommendedMovies);
+            console.log("init display length :",recommendedMovies.movies.length);
+            console.log(recommendedMovies.movies[0]);
+
+            var searchKey="key| ";
+            for(var i=0;i<vm.recommendedMovies.movies.length;i++){
+                searchKey += vm.recommendedMovies.movies[i]+", ";
+            }
+
+            console.log(searchKey);
+            vm.recommendedMoviesData=null;
+            getAllMovieData(searchKey).then(function (result){
+
+                if(result.length!=0){
+                    vm.recommendedMoviesData = result;
+                }else{
+                    vm.recommendedMoviesData = ["error"];
+                }
+                console.log("movie data received is ");
+                console.log(vm.recommendedMoviesData);
+                console.log("code is ");
+                console.log(code);
+                if(code == 1){
+                    vm.movie = vm.recommendedMoviesData[0];
+                }
+
+
+            });
         }
 
 

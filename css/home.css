@@ -384,6 +384,7 @@ a:hover {
 
 
 .movie_details{
+    color: white;
     /*margin-top: 40px;*/
     /*border-top-width: 700px;*/
     /*border-right: 350px;*/
@@ -438,7 +439,20 @@ a:hover {
 }
 
 .centered1 {
-    margin-left: 500px;
+    margin-left: 600px;
+    margin-right: 400px;
 }
-
-
+.thumbnail{
+    width: 200px;
+    height: 300px;
+}
+.image{
+    width: 150px;
+    height: 200px;
+}
+.caption{
+    overflow-wrap: break-word;
+}
+body{
+    padding-top: 50px;
+}

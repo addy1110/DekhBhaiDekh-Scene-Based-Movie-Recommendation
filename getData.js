@@ -32,7 +32,7 @@ module.exports = function(app){
         console.log("querring for movie : "+type);
         client.search({
             size: 1,
-            q: 'key:'+type
+            q: "key:"+type
 
         }).then(function (body) {
 
@@ -61,8 +61,17 @@ module.exports = function(app){
             count = 20;
         }
         else{
-            queryKeyword = 'title:'+type;
-            count = 1
+            queryKeyword = queryType[1];
+            for(var i=0;i<queryKeyword.length;i++){
+                if(queryKeyword[i] == '!' || queryKeyword[i] == '.' || queryKeyword[i] == ':' )
+                    queryKeyword = queryKeyword.replace('!', ' ');
+                    queryKeyword = queryKeyword.replace('.', ' ');
+                    queryKeyword = queryKeyword.replace(':', ' ');
+            }
+
+            queryKeyword = queryKeyword.slice(0, -1);
+            queryKeyword = "key: " +queryKeyword;
+            count = 20
         }
 
         console.log("querrying for this");

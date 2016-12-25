@@ -3,7 +3,6 @@
 
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/home.css">
-    <!--<link rel="stylesheet" href="/css/menubar.css">-->
 </head>
 
 <body>
@@ -66,76 +65,66 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
 <div ng-show="vm.searchresponse" class="searchResult">
-    <div class="searchContainer" ng-repeat="movie in vm.searchresponse" ng-hide="vm.showError">
-        <img ng-src="{{movie._source['picture_url']}}" ng-click="vm.imgClick(movie._source)"/>
-        <div ng-click="vm.imgClick(movie._source)"><h2>{{movie._source.title}} </h2></div>
-        <h2>{{movie._source['release_year']}}</h2>
-        <h2>{{movie._source.rating}}</h2>
-        <h5>{{movie._source.synopsis}}</h5>
+    <div class="col-md-2 col-md-offset-1 col-xs-4 thumbnail" ng-repeat="movie in vm.searchresponse" ng-hide="vm.showError">
+        <div>
+            <img class="col-md-offset-1 image" ng-src="{{movie._source['picture_url']}}" ng-click="vm.imgClick(movie._source)"/>
+        </div>
+        <div class="caption">
+            <div ng-click="vm.imgClick(movie._source)"><h5>{{movie._source.title}} </h5></div>
+            <h7> Year:{{movie._source['release_year']}}</h7><br>
+            <h7>imdb rating: {{movie._source.rating}}</h7><br>
+            <!--<h2>{{movie._source.synopsis}}</h2>-->
+        </div>
     </div>
+</div>
 
-    <div ng-show="vm.showError">
-        <h3>No Result Found</h3>
-    </div>
-
+<div ng-show="vm.showError">
+    <h3>No Result Found</h3>
+</div>
+</div>
 </div>
 <div class="movie_description" ng-show="vm.movie && vm.recommendedMovies">
     <div class="vidshow col-md-6 col-xs-12">
 
         <video id="myVideo" width="500" height="400" value="true" ng-click="vm.videoPlay()">
-            <source ng-src='{{vm.movie._source["video_urls"]["s3_url"] || vm.movie._source["video_urls"]["youtube_url"] || "/videos/1.mp4"}}'>
-            Your browser does not support HTML5 video.
+            <source ng-src='{{vm.movie._source["video_urls"]["s3_url"] || "/videos/1.mp4"}}'>
         </video>
 
+
     </div>
 
 </div>
 
-<div class="movie_details col-md-6 col-xs-12" ng-show="(vm.movie && vm.recommendedMovies) || vm.recommendedMovies">
+<div class="movie_details col-md-6 col-xs-4" ng-show="vm.recommendedMovies  && vm.movie">
     <div class="Movies"><h3> Movie : {{vm.movie._source.title}} </h3></div>
     <div class="Year"><h4> Year : {{vm.movie._source.release_year}} </h4></div>
-    <div class="Genre"><h4> Genre : {{vm.movie._source.genres}} </h4></div>
-    <div class="Rating" ><h4> Rating : {{vm.movie._source.rating}} </h4></div>
-    <div><h4>Cast : </h4></div>
-    <div class="Cast" ng-repeat="actor in vm.movie._source.actors"><h4> {{actor}}</h4></div>
-    <div><h4>Director :</h4></div>
-    <div class="Director" ng-repeat="director in vm.movie._source.directors"><h4>{{director}}</h4></div>
-    <div class="Description" ><h4> Description : </h4>
-        <p>{{vm.movie._source.synopsis}}</p>
+    <div class="Genre" > Genre : <span ng-repeat="genre in vm.movie._source.genres" style=" font-size: 10pt">{{genre}}, </span></div>
+    <div class="Rating" ><span> Rating : {{vm.movie._source.rating}} </span></div>
+    <div class="Cast" >Cast :  <span ng-repeat="actor in vm.movie._source.actors"> {{actor}},</span></div>
+    <div class="Director">Director : <span ng-repeat="director in vm.movie._source.directors">{{director}},</span></div>
+    <div class="Description" ><h5></h5>
+        <p> Description :  {{vm.movie._source.synopsis}}</p>
     </div>
 </div>
 
-<!--<h2>{{vm.imgName}}</h2>-->
 </div>
-<!--
-<div ng-repeat="img in vm.imgSrc">
-    <img ng-src="{{img}}"/>
-    <h2>{{img}}</h2>
-    <img src="https://lh4.googleusercontent.com/FfwSL3RI_wkhwxRn6uiQMhdxDirNeJL0lDxJJ3IiEuL8ponN7BMZRlaXUFyvRaBkZ8Oy31MMwWMgjOM=w1440-h826"/>
-    &lt;!&ndash;<img ng-src="https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg"/>&ndash;&gt;
 
-</div>-->
-<!--<div class = "recommend col-md-6 col-xs-12">
-    <h3> Recommended for you! </h3>
-    &lt;!&ndash;<hr width="500">&ndash;&gt;
-</div>-->
 
-<div class="contain" ng-show="vm.recommendedMovies">
+<div class="contain" ng-show="vm.recommendedMovies && vm.recommendedMoviesData">
 
 
     <div class="row">
 
         <div class="row__inner" >
 
-            <div class="tile" ng-repeat="myimage in vm.recommendedMovies.movies">
+            <div class="tile" ng-repeat="myimage in vm.recommendedMoviesData">
                 <div class="tile__media" >
-                    <img class="tile__img" ng-src='{{myimage.mv[0]._source["picture_url"]}}'  ng-click="vm.imgClick(myimage.mv[0]._source)"/>
+                    <img class="tile__img" ng-src='{{myimage._source["picture_url"]}}'  ng-click="vm.imgClick(myimage._source)"/>
 
                     <!--<h2 ng-show="ng-click">{{myimage}}</h2>-->
                 </div>
-                <div class="tile__details"  ng-click="vm.imgClick(myimage.mv[0]._source)">
+                <div class="tile__details"  ng-click="vm.imgClick(myimage._source)">
                     <!--<div class="tile__title">-->
                     <!--{{myimage.title}}-->
                     <!--</div>-->
@@ -146,9 +135,8 @@
 
 </div>
 
-<!-- MDL Spinner Component -->
-<div  ng-hide="vm.recommendedMovies || vm.searchresponse" class="centered1">
-    <img src="/img/reload.gif">
+<div  ng-hide="vm.recommendedMovies || vm.searchresponse" class="centered1 col-md-12">
+    <img src="/img/facebook.gif">
     <h4>Fetching Data.... </h4>
 </div>
 
